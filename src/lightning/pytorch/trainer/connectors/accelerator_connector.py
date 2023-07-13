@@ -220,18 +220,18 @@ class _AcceleratorConnector:
                 f" Available names are: auto, {', '.join(self._accelerator_types)}."
             )
 
-        # MPS accelerator is incompatible with DDP family of strategies. It supports single-device operation only.
-        is_ddp_str = isinstance(strategy, str) and "ddp" in strategy
-        is_deepspeed_str = isinstance(strategy, str) and "deepspeed" in strategy
-        is_parallel_strategy = isinstance(strategy, ParallelStrategy) or is_ddp_str or is_deepspeed_str
-        is_mps_accelerator = MPSAccelerator.is_available() and (
-            accelerator in ("mps", "auto", "gpu", None) or isinstance(accelerator, MPSAccelerator)
-        )
-        if is_mps_accelerator and is_parallel_strategy:
-            raise ValueError(
-                f"You set `strategy={strategy}` but strategies from the DDP family are not supported on the"
-                f" MPS accelerator. Either explicitly set `accelerator='cpu'` or change the strategy."
-            )
+        # # MPS accelerator is incompatible with DDP family of strategies. It supports single-device operation only.
+        # is_ddp_str = isinstance(strategy, str) and "ddp" in strategy
+        # is_deepspeed_str = isinstance(strategy, str) and "deepspeed" in strategy
+        # is_parallel_strategy = isinstance(strategy, ParallelStrategy) or is_ddp_str or is_deepspeed_str
+        # is_mps_accelerator = MPSAccelerator.is_available() and (
+        #     accelerator in ("mps", "auto", "gpu", None) or isinstance(accelerator, MPSAccelerator)
+        # )
+        # if is_mps_accelerator and is_parallel_strategy:
+        #     raise ValueError(
+        #         f"You set `strategy={strategy}` but strategies from the DDP family are not supported on the"
+        #         f" MPS accelerator. Either explicitly set `accelerator='cpu'` or change the strategy."
+        #     )
 
         self._accelerator_flag = accelerator
 
